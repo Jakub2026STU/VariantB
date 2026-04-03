@@ -50,7 +50,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [952, 8.0]
+    coordinate: [840, 4.0]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -62,7 +62,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [512, 4.0]
+    coordinate: [360, 4.0]
     rotation: 0
     state: enabled
 - name: analog_noise_source_x_0
@@ -81,7 +81,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1176, 152.0]
+    coordinate: [1064, 228.0]
     rotation: 0
     state: true
 - name: analog_noise_source_x_0_0
@@ -100,7 +100,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 616.0]
+    coordinate: [304, 908.0]
     rotation: 0
     state: true
 - name: analog_random_source_x_0
@@ -137,7 +137,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 976.0]
+    coordinate: [808, 2008.0]
     rotation: 0
     state: enabled
 - name: blocks_abs_xx_0_0
@@ -154,7 +154,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [472, 1056.0]
+    coordinate: [808, 2152.0]
     rotation: 0
     state: true
 - name: blocks_add_const_vxx_0
@@ -172,7 +172,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 1048.0]
+    coordinate: [944, 2144.0]
     rotation: 0
     state: enabled
 - name: blocks_add_xx_0
@@ -190,7 +190,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1336, 224.0]
+    coordinate: [1328, 256.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0
@@ -208,7 +208,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 688.0]
+    coordinate: [544, 968.0]
     rotation: 0
     state: true
 - name: blocks_char_to_float_0_0
@@ -259,7 +259,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 1000.0]
+    coordinate: [392, 1992.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_0_0_0
@@ -276,7 +276,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [224, 1120.0]
+    coordinate: [384, 2208.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_1
@@ -293,7 +293,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 952.0]
+    coordinate: [392, 1888.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_1_0
@@ -310,7 +310,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 1064.0]
+    coordinate: [384, 2072.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_1_1
@@ -330,48 +330,6 @@ blocks:
     coordinate: [2712, 412.0]
     rotation: 0
     state: disabled
-- name: blocks_copy_0
-  id: blocks_copy
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: 'Instead of this block
-
-      add your hamming coder'
-    enabled: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    showports: 'False'
-    type: byte
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [672, 280.0]
-    rotation: 0
-    state: enabled
-- name: blocks_copy_0_0
-  id: blocks_copy
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: 'Instead of this block
-
-      add your hamming decoder'
-    enabled: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    showports: 'False'
-    type: byte
-    vlen: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [784, 488.0]
-    rotation: 0
-    state: enabled
 - name: blocks_repack_bits_bb_0
   id: blocks_repack_bits_bb
   parameters:
@@ -389,7 +347,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 272.0]
+    coordinate: [832, 268.0]
     rotation: 0
     state: enabled
 - name: blocks_repack_bits_bb_0_0
@@ -429,7 +387,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [352, 480.0]
+    coordinate: [504, 492.0]
     rotation: 0
     state: enabled
 - name: blocks_repack_bits_bb_0_1
@@ -449,7 +407,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1256, 480.0]
+    coordinate: [1128, 484.0]
     rotation: 0
     state: enabled
 - name: blocks_sub_xx_0
@@ -467,7 +425,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 960.0]
+    coordinate: [600, 1992.0]
     rotation: 0
     state: true
 - name: blocks_sub_xx_0_0
@@ -485,7 +443,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [360, 1072.0]
+    coordinate: [600, 2136.0]
     rotation: 0
     state: true
 - name: blocks_throttle2_0
@@ -506,7 +464,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 688.0]
+    coordinate: [1008, 980.0]
     rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0
@@ -525,7 +483,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [168, 792.0]
+    coordinate: [288, 1268.0]
     rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0_0
@@ -544,7 +502,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [168, 864.0]
+    coordinate: [296, 1572.0]
     rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0_1
@@ -563,7 +521,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 784.0]
+    coordinate: [992, 1228.0]
     rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0_1_0
@@ -582,7 +540,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 856.0]
+    coordinate: [992, 1636.0]
     rotation: 0
     state: enabled
 - name: digital_constellation_decoder_cb_0
@@ -598,7 +556,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 488.0]
+    coordinate: [256, 648.0]
     rotation: 0
     state: true
 - name: digital_constellation_decoder_cb_0_0
@@ -614,7 +572,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [432, 696.0]
+    coordinate: [704, 984.0]
     rotation: 0
     state: true
 - name: digital_constellation_encoder_bc_0
@@ -630,7 +588,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1144, 280.0]
+    coordinate: [1072, 376.0]
     rotation: 0
     state: true
 - name: digital_constellation_encoder_bc_0_0
@@ -646,9 +604,84 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 712.0]
+    coordinate: [256, 1040.0]
     rotation: 0
     state: true
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.basic_block):\n\
+      \    def __init__(self):\n        gr.basic_block.__init__(\n            self,\n\
+      \            name='Hamming (7,4) Encoder',\n            in_sig=[np.uint8],\n\
+      \            out_sig=[np.uint8]\n        )\n\n    def general_work(self, input_items,\
+      \ output_items):\n        in0 = input_items[0]\n        out0 = output_items[0]\n\
+      \n        # Hamming 7,4 berie 4 bity a vyr\xE1ba 7 bitov\n        n_blocks =\
+      \ min(len(in0) // 4, len(out0) // 7)\n        if n_blocks == 0:\n          \
+      \  return 0\n\n        # Rozsek\xE1me vstup na bloky po 4 bitoch\n        in_matrix\
+      \ = in0[:n_blocks*4].reshape((n_blocks, 4))\n        d1 = in_matrix[:, 0]\n\
+      \        d2 = in_matrix[:, 1]\n        d3 = in_matrix[:, 2]\n        d4 = in_matrix[:,\
+      \ 3]\n\n        # V\xFDpo\u010Det paritn\xFDch bitov\n        p1 = d1 ^ d2 ^\
+      \ d4\n        p2 = d1 ^ d3 ^ d4\n        p3 = d2 ^ d3 ^ d4\n\n        # Zostavenie\
+      \ 7-bitov\xE9ho Hammingovho slova: p1, p2, d1, p3, d2, d3, d4\n        out_matrix\
+      \ = np.column_stack((p1, p2, d1, p3, d2, d3, d4))\n        out0[:n_blocks*7]\
+      \ = out_matrix.flatten()\n\n        # Povieme GNU Radiu, ko\u013Eko bitov sme\
+      \ spotrebovali a ko\u013Eko vyrobili\n        self.consume(0, n_blocks * 4)\n\
+      \        return n_blocks * 7"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Hamming (7,4) Encoder', 'blk', [], [('0', 'byte', 1)], [('0', 'byte',
+      1)], '', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 296.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.basic_block):\n\
+      \    def __init__(self):\n        gr.basic_block.__init__(\n            self,\n\
+      \            name='Hamming (7,4) Decoder',\n            in_sig=[np.uint8],\n\
+      \            out_sig=[np.uint8]\n        )\n\n    def general_work(self, input_items,\
+      \ output_items):\n        in0 = input_items[0]\n        out0 = output_items[0]\n\
+      \n        # Dek\xF3der berie 7 bitov a vy\u0165ahuje z nich 4 \u010Dist\xE9\
+      \ bity\n        n_blocks = min(len(in0) // 7, len(out0) // 4)\n        if n_blocks\
+      \ == 0:\n            return 0\n\n        # Skop\xEDrujeme d\xE1ta do matice\
+      \ (mus\xED by\u0165 copy, lebo in0 je read-only)\n        in_matrix = in0[:n_blocks*7].copy().reshape((n_blocks,\
+      \ 7))\n        \n        p1 = in_matrix[:, 0]\n        p2 = in_matrix[:, 1]\n\
+      \        d1 = in_matrix[:, 2]\n        p3 = in_matrix[:, 3]\n        d2 = in_matrix[:,\
+      \ 4]\n        d3 = in_matrix[:, 5]\n        d4 = in_matrix[:, 6]\n\n       \
+      \ # V\xFDpo\u010Det syndr\xF3mu (sl\xFA\u017Ei na odhalenie toho, kde nastala\
+      \ chyba)\n        s1 = p1 ^ d1 ^ d2 ^ d4\n        s2 = p2 ^ d1 ^ d3 ^ d4\n \
+      \       s3 = p3 ^ d2 ^ d3 ^ d4\n\n        syndrome = s1 * 1 + s2 * 2 + s3 *\
+      \ 4\n\n        # Oprava jednej chyby pre ka\u017Ed\xFD prijat\xFD 7-bitov\xFD\
+      \ blok\n        for i in range(n_blocks):\n            syn = syndrome[i]\n \
+      \           if syn > 0:\n                # Ak syndr\xF3m nie je 0, ukazuje presne\
+      \ na index pokazen\xE9ho bitu (1-based, preto -1)\n                in_matrix[i,\
+      \ syn - 1] ^= 1\n\n        # Vytiahnutie spr\xE1vnych/opraven\xFDch d\xE1tov\xFD\
+      ch bitov\n        d1_c = in_matrix[:, 2]\n        d2_c = in_matrix[:, 4]\n \
+      \       d3_c = in_matrix[:, 5]\n        d4_c = in_matrix[:, 6]\n\n        out_matrix\
+      \ = np.column_stack((d1_c, d2_c, d3_c, d4_c))\n        out0[:n_blocks*4] = out_matrix.flatten()\n\
+      \n        self.consume(0, n_blocks * 7)\n        return n_blocks * 4"
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Hamming (7,4) Decoder', 'blk', [], [('0', 'byte', 1)], [('0', 'byte',
+      1)], '', [])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [776, 512.0]
+    rotation: 0
+    state: enabled
 - name: fec_ber_bf_0
   id: fec_ber_bf
   parameters:
@@ -664,7 +697,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [344, 824.0]
+    coordinate: [544, 1432.0]
     rotation: 0
     state: enabled
 - name: fec_ber_bf_0_0
@@ -682,7 +715,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 824.0]
+    coordinate: [1248, 1456.0]
     rotation: 0
     state: enabled
 - name: measurement_control_0
@@ -716,7 +749,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 960.0]
+    coordinate: [1416, 2108.0]
     rotation: 0
     state: enabled
 - name: modulation_config
@@ -753,7 +786,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [816, 8.0]
+    coordinate: [696, 0.0]
     rotation: 0
     state: enabled
 - name: modulation_name
@@ -770,7 +803,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 8.0]
+    coordinate: [208, -4.0]
     rotation: 0
     state: enabled
 - name: qtgui_const_sink_x_0_0
@@ -862,7 +895,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1440, 296.0]
+    coordinate: [1448, 340.0]
     rotation: 0
     state: enabled
 - name: qtgui_histogram_sink_x_0
@@ -949,7 +982,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [656, 952.0]
+    coordinate: [1192, 2072.0]
     rotation: 0
     state: true
 - name: qtgui_number_sink_0_0
@@ -1012,7 +1045,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1112, 800.0]
+    coordinate: [1440, 1424.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_0_0
@@ -1075,7 +1108,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [464, 800.0]
+    coordinate: [736, 1400.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -1189,7 +1222,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [608, 8.0]
+    coordinate: [456, -4.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
@@ -1202,7 +1235,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1440, 232.0]
+    coordinate: [1464, 240.0]
     rotation: 0
     state: true
 - name: virtual_sink_1
@@ -1215,7 +1248,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1424, 488.0]
+    coordinate: [1384, 504.0]
     rotation: 0
     state: true
 - name: virtual_sink_1_0
@@ -1228,7 +1261,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [736, 696.0]
+    coordinate: [1240, 992.0]
     rotation: 0
     state: true
 - name: virtual_sink_2
@@ -1241,7 +1274,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 352.0]
+    coordinate: [264, 376.0]
     rotation: 0
     state: true
 - name: virtual_source_0
@@ -1254,7 +1287,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 488.0]
+    coordinate: [8, 504.0]
     rotation: 0
     state: true
 - name: virtual_source_1
@@ -1280,7 +1313,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [32, 952.0]
+    coordinate: [96, 1888.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_0
@@ -1293,7 +1326,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 1064.0]
+    coordinate: [88, 2080.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_0_0
@@ -1306,7 +1339,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 792.0]
+    coordinate: [704, 1240.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_0_0_0
@@ -1319,7 +1352,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [16, 800.0]
+    coordinate: [8, 1280.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_1
@@ -1345,7 +1378,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [656, 864.0]
+    coordinate: [704, 1648.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_2_0
@@ -1358,7 +1391,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 872.0]
+    coordinate: [0, 1584.0]
     rotation: 0
     state: enabled
 - name: virtual_source_2
@@ -1384,7 +1417,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 712.0]
+    coordinate: [8, 936.0]
     rotation: 0
     state: true
 - name: virtual_source_2_1
@@ -1397,7 +1430,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [24, 1000.0]
+    coordinate: [104, 1984.0]
     rotation: 0
     state: true
 - name: virtual_source_2_1_0
@@ -1410,7 +1443,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [40, 1120.0]
+    coordinate: [104, 2208.0]
     rotation: 0
     state: true
 
@@ -1432,11 +1465,9 @@ connections:
 - [blocks_char_to_float_0_0_1, '0', blocks_sub_xx_0, '0']
 - [blocks_char_to_float_0_0_1_0, '0', blocks_sub_xx_0_0, '0']
 - [blocks_char_to_float_0_0_1_1, '0', qtgui_time_sink_x_0, '2']
-- [blocks_copy_0, '0', blocks_repack_bits_bb_0, '0']
-- [blocks_copy_0_0, '0', blocks_repack_bits_bb_0_1, '0']
 - [blocks_repack_bits_bb_0, '0', digital_constellation_encoder_bc_0, '0']
-- [blocks_repack_bits_bb_0_0, '0', blocks_copy_0, '0']
-- [blocks_repack_bits_bb_0_0_0, '0', blocks_copy_0_0, '0']
+- [blocks_repack_bits_bb_0_0, '0', epy_block_0, '0']
+- [blocks_repack_bits_bb_0_0_0, '0', epy_block_1, '0']
 - [blocks_repack_bits_bb_0_1, '0', virtual_sink_1, '0']
 - [blocks_sub_xx_0, '0', blocks_abs_xx_0, '0']
 - [blocks_sub_xx_0_0, '0', blocks_abs_xx_0_0, '0']
@@ -1450,6 +1481,8 @@ connections:
 - [digital_constellation_encoder_bc_0, '0', blocks_add_xx_0, '1']
 - [digital_constellation_encoder_bc_0, '0', qtgui_const_sink_x_0_0, '1']
 - [digital_constellation_encoder_bc_0_0, '0', blocks_add_xx_0_0, '1']
+- [epy_block_0, '0', blocks_repack_bits_bb_0, '0']
+- [epy_block_1, '0', blocks_repack_bits_bb_0_1, '0']
 - [fec_ber_bf_0, '0', qtgui_number_sink_0_0_0, '0']
 - [fec_ber_bf_0_0, '0', qtgui_number_sink_0_0, '0']
 - [virtual_source_0, '0', digital_constellation_decoder_cb_0, '0']
