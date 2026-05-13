@@ -179,7 +179,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [776, 84.0]
+    coordinate: [840, 476.0]
     rotation: 0
     state: enabled
 - name: blocks_stream_to_tagged_stream_0_0
@@ -198,7 +198,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 652.0]
+    coordinate: [552, 588.0]
     rotation: 0
     state: enabled
 - name: blocks_throttle2_0
@@ -286,31 +286,29 @@ blocks:
       \    def __init__(self, frame_size=1024, bits_per_symbol=4):\n        gr.sync_block.__init__(\n\
       \            self,\n            name='Error Rate Counter',\n            in_sig=[np.uint8,\
       \ np.uint8],\n            out_sig=[np.float32, np.float32, np.float32]\n   \
-      \     )\n        self.frame_size = frame_size\n        self.bits_per_symbol\
-      \ = bits_per_symbol\n\n        self.total_bits = 0\n        self.bit_errors\
-      \ = 0\n        self.total_symbols = 0\n        self.symbol_errors = 0\n    \
-      \    self.total_frames = 0\n        self.frame_errors = 0\n\n    def work(self,\
-      \ input_items, output_items):\n        in0 = input_items[0]\n        in1 = input_items[1]\n\
-      \n        if len(in0) == 0 or len(in1) == 0:\n            return 0\n\n     \
-      \   n = min(len(in0), len(in1))\n        in0 = in0[:n]\n        in1 = in1[:n]\n\
-      \n        # Vypocet FER\n        byte_errors = np.sum(in0 != in1)\n        self.total_frames\
-      \ += 1\n        if byte_errors > 0:\n            self.frame_errors += 1\n\n\
-      \        # Vypocet BER (rozbalenie bajtov na bity)\n        bits0 = np.unpackbits(in0)\n\
-      \        bits1 = np.unpackbits(in1)\n        self.bit_errors += np.sum(bits0\
-      \ != bits1)\n        self.total_bits += len(bits0)\n\n        # Vypocet SER\
-      \ pre 16-QAM (1 bajt = 2 symboly po 4 bitoch)\n        sym0_h = (in0 >> 4) &\
-      \ 0x0F\n        sym0_l = in0 & 0x0F\n        sym1_h = (in1 >> 4) & 0x0F\n  \
-      \      sym1_l = in1 & 0x0F\n        self.symbol_errors += np.sum(sym0_h != sym1_h)\
-      \ + np.sum(sym0_l != sym1_l)\n        self.total_symbols += n * 2\n\n      \
-      \  # Vypocet logaritmov (s poistkou -10 proti padnutiu pri nule)\n        ber\
-      \ = self.bit_errors / self.total_bits if self.total_bits > 0 else 0\n      \
-      \  ser = self.symbol_errors / self.total_symbols if self.total_symbols > 0 else\
-      \ 0\n        fer = self.frame_errors / self.total_frames if self.total_frames\
-      \ > 0 else 0\n\n        ber_log = np.log10(ber) if ber > 0 else -10.0\n    \
-      \    ser_log = np.log10(ser) if ser > 0 else -10.0\n        fer_log = np.log10(fer)\
-      \ if fer > 0 else -10.0\n\n        # Zapis na vystupy\n        output_items[0][:]\
-      \ = ser_log\n        output_items[1][:] = ber_log\n        output_items[2][:]\
-      \ = fer_log\n\n        return n"
+      \     )\n        self.total_bits = 0\n        self.bit_errors = 0\n        self.total_symbols\
+      \ = 0\n        self.symbol_errors = 0\n        self.total_frames = 0\n     \
+      \   self.frame_errors = 0\n\n    def work(self, input_items, output_items):\n\
+      \        in0 = input_items[0]\n        in1 = input_items[1]\n        n = len(in0)\n\
+      \n        if n == 0:\n            return 0\n\n        # Vypocet FER (Frame Error\
+      \ Rate)\n        # Porovnanie celeho bloku dat\n        diff = (in0 != in1)\n\
+      \        byte_errors = np.sum(diff)\n        self.total_frames += 1\n      \
+      \  if byte_errors > 0:\n            self.frame_errors += 1\n\n        # Vypocet\
+      \ BER (Bit Error Rate)\n        bits0 = np.unpackbits(in0)\n        bits1 =\
+      \ np.unpackbits(in1)\n        self.bit_errors += np.sum(bits0 != bits1)\n  \
+      \      self.total_bits += len(bits0)\n\n        # Vypocet SER (Symbol Error\
+      \ Rate) pre 16-QAM\n        # 1 bajt = 2 symboly (horne 4 bity a dolne 4 bity)\n\
+      \        sym0_h, sym0_l = (in0 >> 4) & 0x0F, in0 & 0x0F\n        sym1_h, sym1_l\
+      \ = (in1 >> 4) & 0x0F, in1 & 0x0F\n        self.symbol_errors += np.sum(sym0_h\
+      \ != sym1_h) + np.sum(sym0_l != sym1_l)\n        self.total_symbols += n * 2\n\
+      \n        # Vypocet logaritmov (stabilizovane pre GUI)\n        ber = self.bit_errors\
+      \ / self.total_bits if self.total_bits > 0 else 1e-10\n        ser = self.symbol_errors\
+      \ / self.total_symbols if self.total_symbols > 0 else 1e-10\n        fer = self.frame_errors\
+      \ / self.total_frames if self.total_frames > 0 else 1e-10\n\n        # Zapisanie\
+      \ aktualnej hodnoty do celeho vystupneho buffera\n        output_items[0][:]\
+      \ = np.log10(ser) if ser > 0 else -10.0\n        output_items[1][:] = np.log10(ber)\
+      \ if ber > 0 else -10.0\n        output_items[2][:] = np.log10(fer) if fer >\
+      \ 0 else -10.0\n\n        return n"
     affinity: ''
     alias: ''
     bits_per_symbol: '4'
@@ -321,11 +319,11 @@ blocks:
   states:
     _io_cache: ('Error Rate Counter', 'blk', [('frame_size', '1024'), ('bits_per_symbol',
       '4')], [('0', 'byte', 1), ('1', 'byte', 1)], [('0', 'float', 1), ('1', 'float',
-      1), ('2', 'float', 1)], '', ['bits_per_symbol', 'frame_size'])
+      1), ('2', 'float', 1)], '', [])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1112, 16.0]
+    coordinate: [1088, 560.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_0_0_0
@@ -388,7 +386,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1688, 556.0]
+    coordinate: [1328, 748.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_0_1
@@ -451,7 +449,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1696, 284.0]
+    coordinate: [1328, 380.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_3_0
@@ -514,7 +512,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1704, 428.0]
+    coordinate: [1328, 556.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0
