@@ -162,26 +162,6 @@ blocks:
     coordinate: [296, 748.0]
     rotation: 0
     state: enabled
-- name: blocks_repack_bits_bb_0_1
-  id: blocks_repack_bits_bb
-  parameters:
-    affinity: ''
-    alias: ''
-    align_output: 'False'
-    comment: ''
-    endianness: gr.GR_LSB_FIRST
-    k: '8'
-    l: modulation.bits_per_symbol()
-    len_tag_key: '"packet_len"'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [840, 476.0]
-    rotation: 0
-    state: enabled
 - name: blocks_stream_to_tagged_stream_0_0
   id: blocks_stream_to_tagged_stream
   parameters:
@@ -282,33 +262,43 @@ blocks:
 - name: epy_block_0
   id: epy_block
   parameters:
-    _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.sync_block):\n\
-      \    def __init__(self, frame_size=1024, bits_per_symbol=4):\n        gr.sync_block.__init__(\n\
+    _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.basic_block):\n\
+      \    def __init__(self, frame_size=100, bits_per_symbol=4):\n        gr.basic_block.__init__(\n\
       \            self,\n            name='Error Rate Counter',\n            in_sig=[np.uint8,\
-      \ np.uint8],\n            out_sig=[np.float32, np.float32, np.float32]\n   \
-      \     )\n        self.total_bits = 0\n        self.bit_errors = 0\n        self.total_symbols\
+      \ np.uint8], # in0: Truth (\u010Dist\xE9), in1: Received (\u0161um)\n      \
+      \      out_sig=[np.float32, np.float32, np.float32] # SER, BER, FER\n      \
+      \  )\n        self.frame_size = frame_size\n        self.bits_per_symbol = bits_per_symbol\n\
+      \        self.total_bits = 0\n        self.bit_errors = 0\n        self.total_symbols\
       \ = 0\n        self.symbol_errors = 0\n        self.total_frames = 0\n     \
-      \   self.frame_errors = 0\n\n    def work(self, input_items, output_items):\n\
-      \        in0 = input_items[0]\n        in1 = input_items[1]\n        n = len(in0)\n\
-      \n        if n == 0:\n            return 0\n\n        # Vypocet FER (Frame Error\
-      \ Rate)\n        # Porovnanie celeho bloku dat\n        diff = (in0 != in1)\n\
-      \        byte_errors = np.sum(diff)\n        self.total_frames += 1\n      \
-      \  if byte_errors > 0:\n            self.frame_errors += 1\n\n        # Vypocet\
-      \ BER (Bit Error Rate)\n        bits0 = np.unpackbits(in0)\n        bits1 =\
-      \ np.unpackbits(in1)\n        self.bit_errors += np.sum(bits0 != bits1)\n  \
-      \      self.total_bits += len(bits0)\n\n        # Vypocet SER (Symbol Error\
-      \ Rate) pre 16-QAM\n        # 1 bajt = 2 symboly (horne 4 bity a dolne 4 bity)\n\
-      \        sym0_h, sym0_l = (in0 >> 4) & 0x0F, in0 & 0x0F\n        sym1_h, sym1_l\
-      \ = (in1 >> 4) & 0x0F, in1 & 0x0F\n        self.symbol_errors += np.sum(sym0_h\
-      \ != sym1_h) + np.sum(sym0_l != sym1_l)\n        self.total_symbols += n * 2\n\
-      \n        # Vypocet logaritmov (stabilizovane pre GUI)\n        ber = self.bit_errors\
-      \ / self.total_bits if self.total_bits > 0 else 1e-10\n        ser = self.symbol_errors\
-      \ / self.total_symbols if self.total_symbols > 0 else 1e-10\n        fer = self.frame_errors\
-      \ / self.total_frames if self.total_frames > 0 else 1e-10\n\n        # Zapisanie\
-      \ aktualnej hodnoty do celeho vystupneho buffera\n        output_items[0][:]\
+      \   self.frame_errors = 0\n\n    def general_work(self, input_items, output_items):\n\
+      \        # V tomto zapojen\xED s\xFA oba vstupy bajty (0-255)\n        in_truth\
+      \ = input_items[0]\n        in_noisy = input_items[1]\n        \n        n_input\
+      \ = min(len(in_truth), len(in_noisy))\n        n_frames = n_input // self.frame_size\n\
+      \        \n        if n_frames == 0:\n            return 0\n\n        # Spracujeme\
+      \ d\xE1ta po cel\xFDch r\xE1mcoch\n        data_len = n_frames * self.frame_size\n\
+      \        t = in_truth[:data_len]\n        r = in_noisy[:data_len]\n\n      \
+      \  # 1. BER (Bit Error Rate) - rozbal\xEDme bajty na bity a porovn\xE1me\n \
+      \       t_bits = np.unpackbits(t)\n        r_bits = np.unpackbits(r)\n     \
+      \   self.bit_errors += np.sum(t_bits != r_bits)\n        self.total_bits +=\
+      \ len(t_bits)\n\n        # 2. SER (Symbol Error Rate) - pre 16-QAM (4 bity na\
+      \ symbol)\n        # Ka\u017Ed\xFD bajt m\xE1 2 symboly (horn\xFD a doln\xFD\
+      \ nibble)\n        t_high, t_low = (t >> 4) & 0x0F, t & 0x0F\n        r_high,\
+      \ r_low = (r >> 4) & 0x0F, r & 0x0F\n        self.symbol_errors += np.sum(t_high\
+      \ != r_high) + np.sum(t_low != r_low)\n        self.total_symbols += len(t)\
+      \ * 2\n\n        # 3. FER (Frame Error Rate)\n        t_frames = t.reshape(-1,\
+      \ self.frame_size)\n        r_frames = r.reshape(-1, self.frame_size)\n    \
+      \    # R\xE1mec je chybn\xFD, ak sa v \u0148om l\xED\u0161i aspo\u0148 jeden\
+      \ bajt\n        self.frame_errors += np.sum(np.any(t_frames != r_frames, axis=1))\n\
+      \        self.total_frames += n_frames\n\n        # V\xFDpo\u010Det logaritmov\
+      \ pre GUI (Number Sink)\n        # Ak je chyba 0, vr\xE1time -10.0 (predstavuje\
+      \ log10 od ve\u013Emi mal\xE9ho \u010D\xEDsla)\n        ser = self.symbol_errors\
+      \ / self.total_symbols if self.total_symbols > 0 else 1e-10\n        ber = self.bit_errors\
+      \ / self.total_bits if self.total_bits > 0 else 1e-10\n        fer = self.frame_errors\
+      \ / self.total_frames if self.total_frames > 0 else 1e-10\n\n        output_items[0][:]\
       \ = np.log10(ser) if ser > 0 else -10.0\n        output_items[1][:] = np.log10(ber)\
       \ if ber > 0 else -10.0\n        output_items[2][:] = np.log10(fer) if fer >\
-      \ 0 else -10.0\n\n        return n"
+      \ 0 else -10.0\n\n        self.consume(0, data_len)\n        self.consume(1,\
+      \ data_len)\n        return len(output_items[0])"
     affinity: ''
     alias: ''
     bits_per_symbol: '4'
@@ -317,13 +307,13 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Error Rate Counter', 'blk', [('frame_size', '1024'), ('bits_per_symbol',
+    _io_cache: ('Error Rate Counter', 'blk', [('frame_size', '100'), ('bits_per_symbol',
       '4')], [('0', 'byte', 1), ('1', 'byte', 1)], [('0', 'float', 1), ('1', 'float',
-      1), ('2', 'float', 1)], '', [])
+      1), ('2', 'float', 1)], '', ['bits_per_symbol', 'frame_size'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1088, 560.0]
+    coordinate: [1088, 568.0]
     rotation: 0
     state: enabled
 - name: qtgui_number_sink_0_0_0_0
@@ -528,10 +518,21 @@ blocks:
     coordinate: [352, 384.0]
     rotation: 0
     state: enabled
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: TX Data
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [840, 264.0]
+    rotation: 0
+    state: enabled
 
 connections:
-- [blocks_repack_bits_bb_0_1, '0', epy_block_0, '0']
-- [blocks_stream_to_tagged_stream_0_0, '0', blocks_repack_bits_bb_0_1, '0']
 - [blocks_stream_to_tagged_stream_0_0, '0', epy_block_0, '1']
 - [blocks_throttle2_0, '0', blocks_stream_to_tagged_stream_0_0, '0']
 - [blocks_vector_source_x_0, '0', blocks_xor_xx_1, '0']
@@ -541,6 +542,7 @@ connections:
 - [epy_block_0, '0', qtgui_number_sink_0_0_1, '0']
 - [epy_block_0, '1', qtgui_number_sink_3_0, '0']
 - [epy_block_0, '2', qtgui_number_sink_0_0_0_0, '0']
+- [virtual_source_0, '0', epy_block_0, '0']
 
 metadata:
   file_format: 1
