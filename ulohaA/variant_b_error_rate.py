@@ -210,17 +210,15 @@ class variant_b_error_rate(gr.top_block, Qt.QWidget):
         self.blocks_vector_source_x_0 = blocks.vector_source_b([0]*100, True, 1, [])
         self.blocks_throttle2_0 = blocks.throttle( gr.sizeof_char*1, samp_rate, True, 0 if "auto" == "auto" else max( int(float(0.1) * samp_rate) if "auto" == "time" else int(0.1), 1) )
         self.blocks_stream_to_tagged_stream_0_0 = blocks.stream_to_tagged_stream(gr.sizeof_char, 1, 100, "packet_len")
-        self.blocks_repack_bits_bb_0_1 = blocks.repack_bits_bb(8, modulation.bits_per_symbol(), "packet_len", False, gr.GR_LSB_FIRST)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_repack_bits_bb_0_1, 0), (self.epy_block_0, 0))
-        self.connect((self.blocks_stream_to_tagged_stream_0_0, 0), (self.blocks_repack_bits_bb_0_1, 0))
         self.connect((self.blocks_stream_to_tagged_stream_0_0, 0), (self.epy_block_0, 1))
         self.connect((self.blocks_throttle2_0, 0), (self.blocks_stream_to_tagged_stream_0_0, 0))
         self.connect((self.blocks_vector_source_x_0, 0), (self.blocks_xor_xx_1, 0))
+        self.connect((self.blocks_vector_source_x_0, 0), (self.epy_block_0, 0))
         self.connect((self.blocks_vector_source_x_0_0, 0), (self.blocks_xor_xx_1, 1))
         self.connect((self.blocks_xor_xx_1, 0), (self.blocks_throttle2_0, 0))
         self.connect((self.epy_block_0, 2), (self.qtgui_number_sink_0_0_0_0, 0))
