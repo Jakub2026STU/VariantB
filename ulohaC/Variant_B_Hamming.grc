@@ -81,7 +81,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1064, 228.0]
+    coordinate: [1112, 228.0]
     rotation: 0
     state: true
 - name: analog_noise_source_x_0_0
@@ -137,7 +137,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [808, 2008.0]
+    coordinate: [808, 1952.0]
     rotation: 0
     state: enabled
 - name: blocks_abs_xx_0_0
@@ -190,7 +190,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1328, 256.0]
+    coordinate: [1352, 256.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0_0
@@ -276,7 +276,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384, 2208.0]
+    coordinate: [392, 2208.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_1
@@ -310,7 +310,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384, 2072.0]
+    coordinate: [392, 2072.0]
     rotation: 0
     state: enabled
 - name: blocks_char_to_float_0_0_1_1
@@ -347,7 +347,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [832, 268.0]
+    coordinate: [840, 364.0]
     rotation: 0
     state: enabled
 - name: blocks_repack_bits_bb_0_0
@@ -425,7 +425,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 1992.0]
+    coordinate: [616, 1936.0]
     rotation: 0
     state: true
 - name: blocks_sub_xx_0_0
@@ -443,7 +443,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [600, 2136.0]
+    coordinate: [616, 2136.0]
     rotation: 0
     state: true
 - name: blocks_throttle2_0
@@ -464,7 +464,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 980.0]
+    coordinate: [976, 964.0]
     rotation: 0
     state: enabled
 - name: blocks_unpacked_to_packed_xx_0
@@ -556,7 +556,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [256, 648.0]
+    coordinate: [240, 504.0]
     rotation: 0
     state: true
 - name: digital_constellation_decoder_cb_0_0
@@ -572,7 +572,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [704, 984.0]
+    coordinate: [688, 976.0]
     rotation: 0
     state: true
 - name: digital_constellation_encoder_bc_0
@@ -611,22 +611,16 @@ blocks:
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.basic_block):\n\
-      \    def __init__(self):\n        gr.basic_block.__init__(\n            self,\n\
-      \            name='Hamming (7,4) Encoder',\n            in_sig=[np.uint8],\n\
-      \            out_sig=[np.uint8]\n        )\n\n    def general_work(self, input_items,\
-      \ output_items):\n        in0 = input_items[0]\n        out0 = output_items[0]\n\
-      \n        # Hamming 7,4 berie 4 bity a vyr\xE1ba 7 bitov\n        n_blocks =\
-      \ min(len(in0) // 4, len(out0) // 7)\n        if n_blocks == 0:\n          \
-      \  return 0\n\n        # Rozsek\xE1me vstup na bloky po 4 bitoch\n        in_matrix\
-      \ = in0[:n_blocks*4].reshape((n_blocks, 4))\n        d1 = in_matrix[:, 0]\n\
-      \        d2 = in_matrix[:, 1]\n        d3 = in_matrix[:, 2]\n        d4 = in_matrix[:,\
-      \ 3]\n\n        # V\xFDpo\u010Det paritn\xFDch bitov\n        p1 = d1 ^ d2 ^\
-      \ d4\n        p2 = d1 ^ d3 ^ d4\n        p3 = d2 ^ d3 ^ d4\n\n        # Zostavenie\
-      \ 7-bitov\xE9ho Hammingovho slova: p1, p2, d1, p3, d2, d3, d4\n        out_matrix\
-      \ = np.column_stack((p1, p2, d1, p3, d2, d3, d4))\n        out0[:n_blocks*7]\
-      \ = out_matrix.flatten()\n\n        # Povieme GNU Radiu, ko\u013Eko bitov sme\
-      \ spotrebovali a ko\u013Eko vyrobili\n        self.consume(0, n_blocks * 4)\n\
-      \        return n_blocks * 7"
+      \    def __init__(self):\n        gr.basic_block.__init__(self, name='Hamming\
+      \ (7,4) Encoder',\n            in_sig=[np.uint8], out_sig=[np.uint8])\n\n  \
+      \  def general_work(self, input_items, output_items):\n        in0, out0 = input_items[0],\
+      \ output_items[0]\n        n_blocks = min(len(in0) // 4, len(out0) // 7)\n \
+      \       if n_blocks == 0: return 0\n\n        in_matrix = in0[:n_blocks*4].reshape((n_blocks,\
+      \ 4))\n        d1, d2, d3, d4 = in_matrix[:,0], in_matrix[:,1], in_matrix[:,2],\
+      \ in_matrix[:,3]\n\n        p1 = d1 ^ d2 ^ d4\n        p2 = d1 ^ d3 ^ d4\n \
+      \       p3 = d2 ^ d3 ^ d4\n\n        out_matrix = np.column_stack((p1, p2, d1,\
+      \ p3, d2, d3, d4))\n        out0[:n_blocks*7] = out_matrix.flatten()\n     \
+      \   self.consume(0, n_blocks * 4)\n        return n_blocks * 7"
     affinity: ''
     alias: ''
     comment: ''
@@ -638,36 +632,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 296.0]
+    coordinate: [536, 160.0]
     rotation: 0
     state: enabled
 - name: epy_block_1
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.basic_block):\n\
-      \    def __init__(self):\n        gr.basic_block.__init__(\n            self,\n\
-      \            name='Hamming (7,4) Decoder',\n            in_sig=[np.uint8],\n\
-      \            out_sig=[np.uint8]\n        )\n\n    def general_work(self, input_items,\
-      \ output_items):\n        in0 = input_items[0]\n        out0 = output_items[0]\n\
-      \n        # Dek\xF3der berie 7 bitov a vy\u0165ahuje z nich 4 \u010Dist\xE9\
-      \ bity\n        n_blocks = min(len(in0) // 7, len(out0) // 4)\n        if n_blocks\
-      \ == 0:\n            return 0\n\n        # Skop\xEDrujeme d\xE1ta do matice\
-      \ (mus\xED by\u0165 copy, lebo in0 je read-only)\n        in_matrix = in0[:n_blocks*7].copy().reshape((n_blocks,\
-      \ 7))\n        \n        p1 = in_matrix[:, 0]\n        p2 = in_matrix[:, 1]\n\
-      \        d1 = in_matrix[:, 2]\n        p3 = in_matrix[:, 3]\n        d2 = in_matrix[:,\
-      \ 4]\n        d3 = in_matrix[:, 5]\n        d4 = in_matrix[:, 6]\n\n       \
-      \ # V\xFDpo\u010Det syndr\xF3mu (sl\xFA\u017Ei na odhalenie toho, kde nastala\
-      \ chyba)\n        s1 = p1 ^ d1 ^ d2 ^ d4\n        s2 = p2 ^ d1 ^ d3 ^ d4\n \
-      \       s3 = p3 ^ d2 ^ d3 ^ d4\n\n        syndrome = s1 * 1 + s2 * 2 + s3 *\
-      \ 4\n\n        # Oprava jednej chyby pre ka\u017Ed\xFD prijat\xFD 7-bitov\xFD\
-      \ blok\n        for i in range(n_blocks):\n            syn = syndrome[i]\n \
-      \           if syn > 0:\n                # Ak syndr\xF3m nie je 0, ukazuje presne\
-      \ na index pokazen\xE9ho bitu (1-based, preto -1)\n                in_matrix[i,\
-      \ syn - 1] ^= 1\n\n        # Vytiahnutie spr\xE1vnych/opraven\xFDch d\xE1tov\xFD\
-      ch bitov\n        d1_c = in_matrix[:, 2]\n        d2_c = in_matrix[:, 4]\n \
-      \       d3_c = in_matrix[:, 5]\n        d4_c = in_matrix[:, 6]\n\n        out_matrix\
-      \ = np.column_stack((d1_c, d2_c, d3_c, d4_c))\n        out0[:n_blocks*4] = out_matrix.flatten()\n\
-      \n        self.consume(0, n_blocks * 7)\n        return n_blocks * 4"
+      \    def __init__(self):\n        gr.basic_block.__init__(self, name='Hamming\
+      \ (7,4) Decoder',\n            in_sig=[np.uint8], out_sig=[np.uint8])\n\n  \
+      \  def general_work(self, input_items, output_items):\n        in0, out0 = input_items[0],\
+      \ output_items[0]\n        n_blocks = min(len(in0) // 7, len(out0) // 4)\n \
+      \       if n_blocks == 0: return 0\n\n        in_matrix = in0[:n_blocks*7].copy().reshape((n_blocks,\
+      \ 7))\n        p1, p2, d1, p3, d2, d3, d4 = [in_matrix[:, i] for i in range(7)]\n\
+      \n        s1 = p1 ^ d1 ^ d2 ^ d4\n        s2 = p2 ^ d1 ^ d3 ^ d4\n        s3\
+      \ = p3 ^ d2 ^ d3 ^ d4\n        syndrome = s1 * 1 + s2 * 2 + s3 * 4\n\n     \
+      \   for i in range(n_blocks):\n            if syndrome[i] > 0:\n           \
+      \     in_matrix[i, syndrome[i] - 1] ^= 1\n\n        out_matrix = np.column_stack((in_matrix[:,2],\
+      \ in_matrix[:,4], in_matrix[:,5], in_matrix[:,6]))\n        out0[:n_blocks*4]\
+      \ = out_matrix.flatten()\n        self.consume(0, n_blocks * 7)\n        return\
+      \ n_blocks * 4"
     affinity: ''
     alias: ''
     comment: ''
@@ -679,7 +663,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [776, 512.0]
+    coordinate: [776, 648.0]
     rotation: 0
     state: enabled
 - name: fec_ber_bf_0
@@ -1235,7 +1219,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1464, 240.0]
+    coordinate: [1472, 264.0]
     rotation: 0
     state: true
 - name: virtual_sink_1
@@ -1261,7 +1245,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1240, 992.0]
+    coordinate: [1184, 976.0]
     rotation: 0
     state: true
 - name: virtual_sink_2
@@ -1326,7 +1310,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [88, 2080.0]
+    coordinate: [72, 2072.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1_0_0_0
@@ -1417,7 +1401,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 936.0]
+    coordinate: [0, 1040.0]
     rotation: 0
     state: true
 - name: virtual_source_2_1
@@ -1430,7 +1414,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [104, 1984.0]
+    coordinate: [96, 1992.0]
     rotation: 0
     state: true
 - name: virtual_source_2_1_0
@@ -1443,7 +1427,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [104, 2208.0]
+    coordinate: [96, 2208.0]
     rotation: 0
     state: true
 
